@@ -16,11 +16,19 @@ pub fn run() {
     // println!("{}", a1.summarize());
 
     let num_list = vec![34,50,25,100,65];
-    println!("Largest number in num list is {}", largest(&num_list));
+    // println!("Largest number in num list is {}", largest(&num_list));
 
 
     let char_list = vec!['y', 'm', 'a', 'q'];
-    println!("The largest char is {}", largest(&char_list));
+    // println!("The largest char is {}", largest(&char_list));
+
+    // notify(&tweet);
+
+    let string1 = String::from("abcd");
+    let string2 = "xyz";
+
+    let result = longest(string1.as_str(), string2);
+    println!("The longest string is {}", result);
 }
 
 fn some_function<T, U>(t: &T, u: &U) -> i32
@@ -28,6 +36,23 @@ fn some_function<T, U>(t: &T, u: &U) -> i32
             U: Clone + Debug
 {
     1
+}
+
+struct Config 
+{
+
+}
+
+struct App<'a> {
+    config: &'a Config
+}
+
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
 }
 
 fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
@@ -60,9 +85,9 @@ trait Summary {
     }
 }
 
-// fn notify(item: &impl Summary) {
-//     println!("Breaking news! {}", item.summarize());
-// }
+fn notify(item: &impl Summary) {
+    println!("Breaking news! {}", item.summarize());
+}
 // this is verbose
 // fn notify<T: Summary>(item: &T) {
 //     item.summarize();
@@ -102,9 +127,9 @@ struct Tweet {
 }
 
 impl Summary for Tweet {
-    // fn summarize(&self) -> String {
-    //     format!("{}: {}", self.username, self.content)
-    // }
+    fn summarize(&self) -> String {
+        format!("{}: {}", self.username, self.content)
+    }
 }
 
 // generic struct
