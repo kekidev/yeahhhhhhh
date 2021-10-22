@@ -1,4 +1,4 @@
-use std::fmt::{Debug, Display};
+use std::{fmt::{Debug, Display}, iter::Sum};
 
 fn longest_with_an_announcement<'a, T>(
     x: &'a str,
@@ -19,25 +19,30 @@ where
 pub fn run() {
     // let integer: Point<i32> = Point {x: 5, y: 10};
     // let float: Point<f32> = Point {x: 1.0, y:4.0};
-    // let tweet = Tweet {
-    //     username: String::from("horse_ebooks"),
-    //     content: String::from(
-    //         "lorem ipsum"
-    //     ),
-    //     reply: false,
-    //     retweet: false,
-    // };
+    let tweet = Tweet {
+        username: String::from("horse_ebooks"),
+        content: String::from(
+            "lorem ipsum"
+        ),
+        reply: false,
+        retweet: false,
+    };
+
+    println!("{}", tweet.summarize());
+
+    // https://doc.rust-lang.org/book/ch10-02-traits.html#default-implementations
+    // TODO: 
+
 
     // let s: &'static str = "I have a static lifetime.";
 
     // let a1 = returns_summarizable();
     // println!("{}", a1.summarize());
 
-    // let num_list = vec![34,50,25,100,65];
+    let num_list = vec![34,50,25,100,65];
     // println!("Largest number in num list is {}", largest(&num_list));
 
-
-    // let char_list = vec!['y', 'm', 'a', 'q'];
+    let char_list = vec!['y', 'm', 'a', 'q'];
     // println!("The largest char is {}", largest(&char_list));
 
     // notify(&tweet);
@@ -55,7 +60,7 @@ pub fn run() {
 }
 
 struct ImportantExcerpt<'a> {
-    part: &'a str,
+    part: &'a str, 
 }
 
 fn some_function<T, U>(t: &T, u: &U) -> i32
@@ -65,6 +70,20 @@ fn some_function<T, U>(t: &T, u: &U) -> i32
     1
 }
 
+struct Hello<T, U> {
+    a: T,
+    b: U
+}
+
+impl<T, U> Hello<T, U> {
+    fn mixup<V, W>(self, other: Hello<V, W>) -> Hello<T, W> {
+        Hello {
+            a: self.a,
+            b: other.b,
+        }
+    }
+}
+ 
 struct Config {}
 
 struct App<'a> {
@@ -103,10 +122,7 @@ fn returns_summarizable() -> impl Summary {
 }
 
 trait Summary {
-    // fn summarize(&self) -> String;
-    fn summarize(&self) -> String {
-        String::from("Read more...")
-    }
+    fn summarize(&self) -> String;
 }
 
 fn notify(item: &impl Summary) {
@@ -131,23 +147,23 @@ fn notify(item: &impl Summary) {
 
 
 struct NewsArticle {
-    pub headline: String,
-    pub location: String,
-    pub author: String,
-    pub content: String,
+    headline: String,
+    location: String,
+    author: String,
+    content: String
+}
+
+struct Tweet {
+    username: String,
+    content: String,
+    reply: bool,
+    retweet: bool
 }
 
 impl Summary for NewsArticle {
     fn summarize(&self) -> String {
         format!("{}, by {} ({})", self.headline, self.author, self.location)
     }
-}
-
-struct Tweet {
-    pub username: String,
-    pub content: String,
-    pub reply: bool,
-    pub retweet: bool
 }
 
 impl Summary for Tweet {
