@@ -58,10 +58,10 @@ pub fn run() {
 
     let a1 = "hello world fucked up world";
 
-    let mut m1 = HashMap::new();
+    // let mut m1 = HashMap::new();
 
-    for word in a1.split_whitespace() {
-        let count = map.entry(word).or_insert(0);
-        *count += 1;
-    }
+    // for word in a1.split_whitespace() {
+    //     let count = map.entry(word).or_insert(0);
+    //     *count += 1;
+    // }
 }

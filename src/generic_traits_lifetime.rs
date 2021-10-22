@@ -1,34 +1,61 @@
 use std::fmt::{Debug, Display};
 
-pub fn run() {
-    let integer: Point<i32> = Point {x: 5, y: 10};
-    let float: Point<f32> = Point {x: 1.0, y:4.0};
-    let tweet = Tweet {
-        username: String::from("horse_ebooks"),
-        content: String::from(
-            "lorem ipsum"
-        ),
-        reply: false,
-        retweet: false,
-    };
+fn longest_with_an_announcement<'a, T>(
+    x: &'a str,
+    y: &'a str,
+    ann: T,
+) -> &'a str
+where
+    T: Display,
+{
+    println!("Announcement! {}", ann);
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
 
-    let a1 = returns_summarizable();
+pub fn run() {
+    // let integer: Point<i32> = Point {x: 5, y: 10};
+    // let float: Point<f32> = Point {x: 1.0, y:4.0};
+    // let tweet = Tweet {
+    //     username: String::from("horse_ebooks"),
+    //     content: String::from(
+    //         "lorem ipsum"
+    //     ),
+    //     reply: false,
+    //     retweet: false,
+    // };
+
+    // let s: &'static str = "I have a static lifetime.";
+
+    // let a1 = returns_summarizable();
     // println!("{}", a1.summarize());
 
-    let num_list = vec![34,50,25,100,65];
+    // let num_list = vec![34,50,25,100,65];
     // println!("Largest number in num list is {}", largest(&num_list));
 
 
-    let char_list = vec!['y', 'm', 'a', 'q'];
+    // let char_list = vec!['y', 'm', 'a', 'q'];
     // println!("The largest char is {}", largest(&char_list));
 
     // notify(&tweet);
 
-    let string1 = String::from("abcd");
-    let string2 = "xyz";
+    // let string1 = String::from("abcd");
+    // let string2 = "xyz";
 
-    let result = longest(string1.as_str(), string2);
-    println!("The longest string is {}", result);
+    // let result = longest(string1.as_str(), string2);
+
+    // let novel = String::from("Call me Ishmal. Some yeras ago..");
+    // let first_sentence = novel.split('.').next().expect("Could not find sentence");
+    // let i = ImportantExcerpt {
+    //     part: first_sentence
+    // };
+}
+
+struct ImportantExcerpt<'a> {
+    part: &'a str,
 }
 
 fn some_function<T, U>(t: &T, u: &U) -> i32
@@ -38,10 +65,7 @@ fn some_function<T, U>(t: &T, u: &U) -> i32
     1
 }
 
-struct Config 
-{
-
-}
+struct Config {}
 
 struct App<'a> {
     config: &'a Config
