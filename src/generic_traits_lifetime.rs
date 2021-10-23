@@ -1,20 +1,4 @@
-use std::{fmt::{Debug, Display}, iter::Sum};
-
-fn longest_with_an_announcement<'a, T>(
-    x: &'a str,
-    y: &'a str,
-    ann: T,
-) -> &'a str
-where
-    T: Display,
-{
-    println!("Announcement! {}", ann);
-    if x.len() > y.len() {
-        x
-    } else {
-        y
-    }
-}
+use std::{fmt::{Debug, Display}};
 
 pub fn run() {
     // let integer: Point<i32> = Point {x: 5, y: 10};
@@ -28,16 +12,10 @@ pub fn run() {
         retweet: false,
     };
 
-    println!("{}", tweet.summarize());
-
-    // https://doc.rust-lang.org/book/ch10-02-traits.html#default-implementations
-    // TODO: 
-
-
     // let s: &'static str = "I have a static lifetime.";
 
-    // let a1 = returns_summarizable();
-    // println!("{}", a1.summarize());
+    let a1 = returns_summarizable();
+    println!("{}", a1.summarize());
 
     let num_list = vec![34,50,25,100,65];
     // println!("Largest number in num list is {}", largest(&num_list));
@@ -59,10 +37,34 @@ pub fn run() {
     // };
 }
 
-struct ImportantExcerpt<'a> {
-    part: &'a str, 
+// fn notify(item: &impl Summary) {
+//     println!("breaking news! {}", item.summarize());
+// }
+// fn notify(item: &(impl Summary + Display)) 
+// fn notify<T: Summary + Display>(item: &T) 
+
+
+// struct ImportantExcerpt<'a> {
+//     part: &'a str,
+// }
+
+fn longest_with_an_announcement<'a, T>(
+    x: &'a str,
+    y: &'a str,
+    ann: T,
+) -> &'a str
+    where
+        T: Display,
+{
+    println!("Announcement! {}", ann);
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
 }
 
+// fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32 {
 fn some_function<T, U>(t: &T, u: &U) -> i32
     where T: Display + Clone,
             U: Clone + Debug
@@ -84,19 +86,19 @@ impl<T, U> Hello<T, U> {
     }
 }
  
-struct Config {}
+// struct Config {}
 
-struct App<'a> {
-    config: &'a Config
-}
-
-fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
-    if x.len() > y.len() {
-        x
-    } else {
-        y
-    }
-}
+// struct App<'a> {
+//     config: &'a Config
+// }
+//
+// fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+//     if x.len() > y.len() {
+//         x
+//     } else {
+//         y
+//     }
+// }
 
 fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
     let mut largest = list[0];
@@ -109,7 +111,7 @@ fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
 
     largest
 }
-
+//
 fn returns_summarizable() -> impl Summary {
     Tweet {
         username: String::from("horse_ebooks"),
@@ -125,9 +127,9 @@ trait Summary {
     fn summarize(&self) -> String;
 }
 
-fn notify(item: &impl Summary) {
-    println!("Breaking news! {}", item.summarize());
-}
+// fn notify(item: &impl Summary) {
+//     println!("Breaking news! {}", item.summarize());
+// }
 // this is verbose
 // fn notify<T: Summary>(item: &T) {
 //     item.summarize();
