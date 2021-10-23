@@ -1,4 +1,4 @@
-use std::{fmt::{Debug, Display}};
+use std::fmt::{Debug, Display};
 
 pub fn run() {
     // let integer: Point<i32> = Point {x: 5, y: 10};
@@ -40,8 +40,8 @@ pub fn run() {
 // fn notify(item: &impl Summary) {
 //     println!("breaking news! {}", item.summarize());
 // }
-// fn notify(item: &(impl Summary + Display)) 
-// fn notify<T: Summary + Display>(item: &T) 
+// fn notify(item: &(impl Summary + Display))
+// fn notify<T: Summary + Display>(item: &T)
 
 
 // struct ImportantExcerpt<'a> {
@@ -85,7 +85,8 @@ impl<T, U> Hello<T, U> {
         }
     }
 }
- 
+
+
 // struct Config {}
 
 // struct App<'a> {
@@ -120,6 +121,7 @@ fn returns_summarizable() -> impl Summary {
         ),
         reply: false,
         retweet: false,
+
     }
 }
 
@@ -141,7 +143,7 @@ trait Summary {
 
 // Clearer trait bounds with "where" Clauses
 // fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32 {
-// equals to 
+// equals to
 // fn some_function<T, U>(t: &T, u: &U) -> i32
 //     where T: Display + Clone,
 //           U: Clone + Debug
@@ -191,5 +193,5 @@ impl<T> Point<T> {
 impl Point<f32> {
     fn distance_from_origin(&self) -> f32 {
         (self.x.powi(2) + self.y.powi(2)).sqrt()
-    } 
+    }
 }
