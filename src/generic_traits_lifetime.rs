@@ -3,32 +3,37 @@ use std::fmt::{Debug, Display};
 pub fn run() {
     // let integer: Point<i32> = Point {x: 5, y: 10};
     // let float: Point<f32> = Point {x: 1.0, y:4.0};
-    let tweet = Tweet {
-        username: String::from("horse_ebooks"),
-        content: String::from(
-            "lorem ipsum"
-        ),
-        reply: false,
-        retweet: false,
-    };
+    // let tweet = Tweet {
+    //     username: String::from("horse_ebooks"),
+    //     content: String::from(
+    //         "lorem ipsum"
+    //     ),
+    //     reply: false,
+    //     retweet: false,
+    // };
 
     // let s: &'static str = "I have a static lifetime.";
 
-    let a1 = returns_summarizable();
-    println!("{}", a1.summarize());
+    // let a1 = returns_summarizable();
+    // println!("{}", a1.summarize());
 
-    let num_list = vec![34,50,25,100,65];
+    // let num_list = vec![34,50,25,100,65];
     // println!("Largest number in num list is {}", largest(&num_list));
 
-    let char_list = vec!['y', 'm', 'a', 'q'];
+    // let char_list = vec!['y', 'm', 'a', 'q'];
     // println!("The largest char is {}", largest(&char_list));
 
     // notify(&tweet);
 
-    // let string1 = String::from("abcd");
-    // let string2 = "xyz";
 
-    // let result = longest(string1.as_str(), string2);
+    let string1 = String::from("long string is long");
+    let result;
+    { 
+        let string2 = String::from("xyz");
+        result = longest(string1.as_str(), string2.as_str());
+    }
+    
+    println!("longest str is {}", result);
 
     // let novel = String::from("Call me Ishmal. Some yeras ago..");
     // let first_sentence = novel.split('.').next().expect("Could not find sentence");
@@ -93,13 +98,22 @@ impl<T, U> Hello<T, U> {
 //     config: &'a Config
 // }
 //
-// fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
-//     if x.len() > y.len() {
-//         x
-//     } else {
-//         y
-//     }
-// }
+
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+
+fn compare_str<'a>(x: &'a String, y: &'a String) -> &'a String {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
 
 fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
     let mut largest = list[0];

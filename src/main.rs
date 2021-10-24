@@ -6,5 +6,6 @@ mod error_handling;
 mod generic_traits_lifetime;
 
 fn main() {
-    generic_traits_lifetime::run();
+    // generic_traits_lifetime::run();
+    ownership::run();
 }
