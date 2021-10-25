@@ -1,5 +1,31 @@
 use std::fmt::{Debug, Display};
 
+struct ImportantExcerpt<'a> {
+    part: &'a str,
+}
+
+impl<'a> ImportantExcerpt<'a> {
+    fn level(&self) -> i32 {
+        3 
+    } 
+}
+
+fn longest_with_announcement<'a, T>(
+    x: &'a str,
+    y: &'a str,
+    ann: T,
+) -> &'a str 
+where 
+    T: Display,
+{
+    println!("Announcement! {}", ann);
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+
 pub fn run() {
     // let integer: Point<i32> = Point {x: 5, y: 10};
     // let float: Point<f32> = Point {x: 1.0, y:4.0};
@@ -26,20 +52,33 @@ pub fn run() {
     // notify(&tweet);
 
 
-    let string1 = String::from("long string is long");
-    let result;
-    { 
-        let string2 = String::from("xyz");
-        result = longest(string1.as_str(), string2.as_str());
-    }
-    
-    println!("longest str is {}", result);
+    // let string1 = String::from("long string is long");
+    // let result;
+    // { 
+        // let string2 = String::from("xyz");
+        // result = longest(string1.as_str(), string2.as_str());
+        // result's life time is same as string 2
+        // therefore its gonna be invalid out of inner scope
+        /* 
+            as doc says:
+            We’ve told Rust that the lifetime of the reference returned 
+            by the longest function is the same as the smaller of the lifetimes of the references passed in.
+           Therefore, the borrow checker disallows the code in Listing 10-24 as possibly having an invalid reference.
+        */
+
+        // println!("longest str is {}", result);  valid 
+    // }
+    // println!("longest str is {}", result); invalid
 
     // let novel = String::from("Call me Ishmal. Some yeras ago..");
     // let first_sentence = novel.split('.').next().expect("Could not find sentence");
     // let i = ImportantExcerpt {
     //     part: first_sentence
     // };
+
+    // let s: &'static str = "I have a static lifetime.";
+
+
 }
 
 // fn notify(item: &impl Summary) {
@@ -49,25 +88,6 @@ pub fn run() {
 // fn notify<T: Summary + Display>(item: &T)
 
 
-// struct ImportantExcerpt<'a> {
-//     part: &'a str,
-// }
-
-fn longest_with_an_announcement<'a, T>(
-    x: &'a str,
-    y: &'a str,
-    ann: T,
-) -> &'a str
-    where
-        T: Display,
-{
-    println!("Announcement! {}", ann);
-    if x.len() > y.len() {
-        x
-    } else {
-        y
-    }
-}
 
 // fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32 {
 fn some_function<T, U>(t: &T, u: &U) -> i32
@@ -106,6 +126,15 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
         y
     }
 }
+
+/*
+wont compile
+dangling reference
+fn longest<'a>(x: &str, y: &str) -> &'a str {
+    let result = String::from("really long string");
+    result.as_str()
+}
+*/
 
 fn compare_str<'a>(x: &'a String, y: &'a String) -> &'a String {
     if x.len() > y.len() {
